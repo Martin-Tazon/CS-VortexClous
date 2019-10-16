@@ -2,21 +2,20 @@
 
 #################
 #
-#	Nueva versión del splityears. Prepara solo el anyo que se le pida a partir de los datos raw
+#	Splits raw CMIP5 data for given model (all experiments) in one year files.
+#		Necesita: Check files remaining in spool/check/
 #
 #################
 
-year=1994
-
 mdl=CNRM-CM5
-exp=historical
 ens=r1i1p1
 
 spool_path="./spool"
 
+#rm -r spool
 mkdir -p spool/{cat,check,ready}
 
-for exp in historical;do #historical rcp45 rcp85;do
+for exp in historical rcp45 rcp85;do
 	data_path="/home/martin/storage/models/${mdl}/wget/raw-${exp}"
 	echo Getting data from: $data_path
 
@@ -98,6 +97,8 @@ for exp in historical;do #historical rcp45 rcp85;do
 					echo '    '${varfreq} ${year} ok!
 				else
 				    echo '    Check FAILED For '${varfreq} ${year} -- $ntime timesteps
+					# Anyadir que si $year es $syear puede tener todos-1 timesteps
+					#			  si $year es $eyear puede tener un solo timestep
 				fi
 			fi
 
@@ -105,4 +106,5 @@ for exp in historical;do #historical rcp45 rcp85;do
 	done
 done
 
-echo If all OK. Move files to ~/storage/models/$mdl/files/
+echo If all OK. Move files from spool/ready/ to ~/storage/models/$mdl/files/
+echo If there are files in spool/check/ corrections may need to be made.

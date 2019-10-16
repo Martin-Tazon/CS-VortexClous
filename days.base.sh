@@ -2,12 +2,15 @@
 
 #####################
 #
-#	Day selection for acciona 1(+1) cada 24 (c4)
+#	This script builds list of days to be used in a given run.
+#		Selects days as (c4 Convention) 1 day simulation (+0.5 spin up) every 24 days.
 #
 #####################
 
 mdl=CNRM-CM5
 exp=rcp85
+
+run=acciona-mx.v3
 
 if [ $exp == historical ];then
 	syear=1981
@@ -33,7 +36,7 @@ if [ `echo $ydate | sed 's/-//g'` -ge `echo $edate | sed 's/-//g'` ];then exit;f
 echo $xdate "--->" $ydate
 # Run a script from here
 
-./precook.1+1.sh $mdl $exp $xdate
+echo $xdate >> days.$run.lst
 
 
 
