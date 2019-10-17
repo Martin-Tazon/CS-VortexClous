@@ -6,11 +6,12 @@
 #
 ######################################
 
-
-mdl=CNRM-CM5
+run=acciona-mx.v3
 exp=historical
 
-for date in `cat days.$mdl.lst`;do
+mdl=CNRM-CM5
+
+for date in `cat days.$run.$exp.lst`;do
 
 	./precook.$mdl.sh $exp $date
 
